@@ -1,6 +1,6 @@
 import Vapor
 
-public final class Provider: Vapor.Provider {
+public final class MarkdownProvider: Vapor.Provider {
     
     public init(config: Config) throws { }
     
