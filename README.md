@@ -22,6 +22,15 @@ Check out my *awesome* markdown! It is easy to use in `tags`
 
 ### Add as dependency
 
+Add VaporMarkdown as a dependency in your `Package.swift` file:
+
+```
+    dependencies: [
+	...,
+        .Package(url: "https://github.com/brokenhandsio/VaporMarkdown", majorVersion: 0, minor: 1)
+    ]
+```
+
 ### Register with Leaf
 
 During your setup (for example, in `main.swift`), register your tag as so:
