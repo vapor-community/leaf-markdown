@@ -1,6 +1,6 @@
 # VaporMarkdown
 
-A Markdown renderer for Vapor and Leaf. This uses the (Vapor Markdown)[https://github.com/vapor/markdown] package to wrap [cmark](https://github.com/jgm/cmark) (though a [fork](https://github.com/vapor/cmark) is used to make is work with Swift PM), so it understands [Common Mark](http://commonmark.org).
+A Markdown renderer for Vapor and Leaf. This uses the [Vapor Markdown](https://github.com/vapor/markdown) package to wrap [cmark](https://github.com/jgm/cmark) (though a [fork](https://github.com/vapor/cmark) is used to make is work with Swift PM), so it understands [Common Mark](http://commonmark.org).
 
 ## Use
 
