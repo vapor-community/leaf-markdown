@@ -1,4 +1,4 @@
-# VaporMarkdown
+# LeafMarkdown
 
 A Markdown renderer for Vapor and Leaf. This uses the [Vapor Markdown](https://github.com/vapor/markdown) package to wrap [cmark](https://github.com/jgm/cmark) (though a [fork](https://github.com/vapor/cmark) is used to make is work with Swift PM), so it understands [Common Mark](http://commonmark.org).
 
@@ -22,12 +22,12 @@ Check out my *awesome* markdown! It is easy to use in `tags`
 
 ### Add as dependency
 
-Add VaporMarkdown as a dependency in your `Package.swift` file:
+Add LeafMarkdown as a dependency in your `Package.swift` file:
 
 ```
     dependencies: [
         ...,
-        .Package(url: "https://github.com/brokenhandsio/VaporMarkdown", majorVersion: 0, minor: 1)
+        .Package(url: "https://github.com/brokenhandsio/LeafMarkdown", majorVersion: 0, minor: 1)
     ]
 ```
 
@@ -41,4 +41,4 @@ if let leaf = drop.view as? LeafRenderer {
 }
 ```
 
-Don't forget to import VaporMarkdown in the file you register the tag in with `import VaporMarkdown`
+Don't forget to import LeafMarkdown in the file you register the tag in with `import LeafMarkdown`
