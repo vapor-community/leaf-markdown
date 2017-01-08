@@ -1,6 +1,6 @@
 import Vapor
 import Foundation
-import vapor_markdown
+import VaporMarkdown
 
 let drop = Droplet()
 

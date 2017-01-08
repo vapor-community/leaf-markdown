@@ -1,9 +1,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "vapor-markdown",
+    name: "VaporMarkdown",
     targets: [
-    	Target(name: "vapor-markdown-example", dependencies: ["vapor-markdown"])
+    	Target(name: "vapor-markdown-example", dependencies: ["VaporMarkdown"])
     ],
     dependencies: [
     	.Package(url: "https://github.com/vapor/vapor.git", majorVersion: 1, minor: 3),
