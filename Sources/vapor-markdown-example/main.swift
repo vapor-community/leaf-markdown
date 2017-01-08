@@ -2,12 +2,14 @@ import Vapor
 import Foundation
 import vapor_markdown
 
-let droplet = Droplet()
+let drop = Droplet()
 
-try droplet.addProvider(LeafMarkdownProvider.self)
-
-droplet.get { req in
-    return try droplet.view.make("index.leaf", ["greeting": .string("World")])
+if let leaf = drop.view as? LeafRenderer {
+    leaf.stem.register(Markdown())
 }
 
-droplet.run()
+drop.get { req in
+    return try drop.view.make("index.leaf", ["greeting": .string("World")])
+}
+
+drop.run()

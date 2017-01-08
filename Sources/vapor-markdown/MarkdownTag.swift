@@ -1,39 +1,29 @@
 import Leaf
+import cmark_swift
 
-public final class Markdown: Tag {
+public final class Markdown: BasicTag {
     
     public enum Error: Swift.Error {
         case expectedVariable(Argument?)
+        case invalidArgument(Argument)
     }
     
+    public init() { }
+     
     public let name = "markdown"
-    public let renderer: MarkdownRenderer
     
-    public init(renderer: MarkdownRenderer) {
-        self.renderer = renderer
-    }
-    
-    public func run(
-        stem: Stem,
-        context: Context,
-        tagTemplate: TagTemplate,
-        arguments: [Argument]) throws -> Node? {
-        
-        guard case .variable(let markdown)? = arguments.first else {
+    public func run(arguments: [Argument]) throws -> Node? {
+        guard let markdownArgument = arguments.first else {
             throw Error.expectedVariable(arguments.first)
         }
         
-        let view = try renderer.make(filePath)
-        let viewString = view.data.string
-        return .string(viewString)
+        guard let markdown = markdownArgument.value?.string else {
+            throw Error.invalidArgument(markdownArgument)
+        }
+        
+        let markdownHtml = try markdownToHTML(markdown)
+        
+        return .string(markdownHtml)
     }
-    
-    public func shouldRender(
-        stem: Stem,
-        context: Context,
-        tagTemplate: TagTemplate,
-        arguments: [Argument],
-        value: Node?) -> Bool {
-        return true
-    }
+
 }
