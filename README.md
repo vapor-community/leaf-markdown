@@ -26,7 +26,7 @@ Add VaporMarkdown as a dependency in your `Package.swift` file:
 
 ```
     dependencies: [
-	...,
+        ...,
         .Package(url: "https://github.com/brokenhandsio/VaporMarkdown", majorVersion: 0, minor: 1)
     ]
 ```
