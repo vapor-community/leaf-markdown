@@ -12,7 +12,7 @@ Once set up, you can use it in your Leaf template files like any other tag:
 
 Where you have passed `myMarkdown` into the view as somthing like:
 
-```swift
+```markdown
 # Hey #
 
 Check out my *awesome* markdown! It is easy to use in `tags`
