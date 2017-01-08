@@ -22,8 +22,8 @@ public final class Markdown: BasicTag {
         }
         
         let markdownHtml = try markdownToHTML(markdown)
-        
-        return .string(markdownHtml)
+        let unescaped = markdownHtml.bytes
+        return .bytes(unescaped)
     }
 
 }
