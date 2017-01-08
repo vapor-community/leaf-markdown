@@ -15,4 +15,7 @@ public final class MarkdownProvider: Vapor.Provider {
     }
     
     public func beforeServe(_: Droplet) { }
+    
+    public func beforeRun(_: Droplet) { }
+
 }

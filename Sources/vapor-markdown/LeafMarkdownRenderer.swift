@@ -15,5 +15,6 @@ public final class LeafMarkdownProvider: Vapor.Provider {
     
     public func afterInit(_ drop: Droplet) { }
     public func beforeServe(_: Droplet) { }
+    public func beforeRun(_: Droplet) { }
 }
 

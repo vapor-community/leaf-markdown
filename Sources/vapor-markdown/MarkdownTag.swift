@@ -1,5 +1,4 @@
 import Leaf
-import vapor_markdown
 
 public final class Markdown: Tag {
     
@@ -20,10 +19,9 @@ public final class Markdown: Tag {
         tagTemplate: TagTemplate,
         arguments: [Argument]) throws -> Node? {
         
-        guard case .variable(let path)? = arguments.first else {
+        guard case .variable(let markdown)? = arguments.first else {
             throw Error.expectedVariable(arguments.first)
         }
-        let filePath = path.path.joined(separator: ".")
         
         let view = try renderer.make(filePath)
         let viewString = view.data.string
