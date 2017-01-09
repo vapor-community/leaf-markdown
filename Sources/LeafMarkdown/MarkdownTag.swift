@@ -1,5 +1,5 @@
 import Leaf
-import cmark_swift
+import SwiftMarkdown
 
 public final class Markdown: BasicTag {
     
