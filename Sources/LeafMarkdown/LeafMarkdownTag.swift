@@ -1,7 +1,7 @@
 import Leaf
 import SwiftMarkdown
 
-public final class Markdown: BasicTag {
+public final class LeafMarkdownTag: BasicTag {
     
     public enum Error: Swift.Error {
         case expectedVariable(Argument?)
@@ -10,7 +10,7 @@ public final class Markdown: BasicTag {
     
     public init() { }
      
-    public let name = "markdown"
+    public let name = "LeafMarkdown"
     
     public func run(arguments: [Argument]) throws -> Node? {
         guard let markdownArgument = arguments.first else {
