@@ -35,13 +35,23 @@ Add LeafMarkdown as a dependency in your `Package.swift` file:
     ]
 ```
 
+### Add the Provider
+
+You can add a provider to you `Droplet`, which will do all of the setup for you and register your tag. Just add it as so:
+
+```swift
+let drop = Droplet()
+try drop.addProvider(LeafMarkdownProvider.self)
+```
+
+
 ### Register with Leaf
 
-During your setup (for example, in `main.swift`), register your tag as so:
+Alternatively, you can also directly add the Tag onto your `LeafRenderer` if desired. During your setup (for example, in `main.swift`), register your tag as so:
 
 ```swift
 if let leaf = drop.view as? LeafRenderer {
-    leaf.stem.register(Markdown())
+    leaf.stem.register(LeafMardownTag())
 }
 ```
 
