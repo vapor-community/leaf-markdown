@@ -1,4 +1,4 @@
-# LeafMarkdown
+# Leaf Markdown
 
 [![Language](https://img.shields.io/badge/Swift-3-brightgreen.svg)](http://swift.org)
 [![Build Status](https://travis-ci.org/brokenhandsio/LeafMarkdown.svg)](https://travis-ci.org/brokenhandsio/LeafMarkdown)
