@@ -10,7 +10,7 @@ public struct Provider: Vapor.Provider {
             return
         }
         
-        renderer.stem.register(LeafMarkdownTag())
+        renderer.stem.register(Markdown())
     }
     
     public init(config: Config) throws {}

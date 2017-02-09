@@ -19,7 +19,7 @@ class ProviderTests: XCTestCase {
             return
         }
         
-        XCTAssertNotNil(leaf.stem.tags[LeafMarkdownTag().name])
+        XCTAssertNotNil(leaf.stem.tags[Markdown().name])
     }
     
     func testProviderGracefullyHandlesNonLeafRenderer() {

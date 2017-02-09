@@ -1,7 +1,7 @@
 import Leaf
 import SwiftMarkdown
 
-public final class LeafMarkdownTag: BasicTag {
+public final class Markdown: BasicTag {
     
     public enum Error: Swift.Error {
         case expectedVariable(Argument?)

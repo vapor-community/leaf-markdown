@@ -10,7 +10,7 @@ class LeafTests: XCTestCase {
     ]
     
     func testRunTag() {
-        let tag = LeafMarkdownTag()
+        let tag = Markdown()
         let inputMarkdown = "# This is a test\n\nWe have some text in a tag"
         let expectedHtml = "<h1>This is a test</h1>\n<p>We have some text in a tag</p>\n"
         
