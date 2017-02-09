@@ -1,6 +1,6 @@
 import Vapor
 
-public struct LeafMarkdownProvider: Provider {
+public struct Provider: Vapor.Provider {
     
     public var provided: Providable = Providable()
     

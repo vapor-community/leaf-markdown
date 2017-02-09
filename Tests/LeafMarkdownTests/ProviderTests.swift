@@ -11,7 +11,7 @@ class ProviderTests: XCTestCase {
     
     func testProviderAddsTagToLeaf() {
         let drop = Droplet()
-        let leafProvider = LeafMarkdownProvider()
+        let leafProvider = Provider()
         leafProvider.boot(drop)
         
         guard let leaf = drop.view as? LeafRenderer else {
@@ -26,7 +26,7 @@ class ProviderTests: XCTestCase {
         let drop = Droplet()
         let stubbedRenderer = StubbedRenderer(viewsDir: "")
         drop.view = stubbedRenderer
-        let leafProvider = LeafMarkdownProvider()
+        let leafProvider = Provider()
         leafProvider.boot(drop)
         XCTAssert(true, "We should reach this point")
     }
