@@ -42,7 +42,7 @@ You can add a provider to you `Droplet`, which will do all of the setup for you 
 
 ```swift
 let drop = Droplet()
-try drop.addProvider(LeafMarkdownProvider.self)
+try drop.addProvider(LeafMarkdown.Provider.self)
 ```
 
 
