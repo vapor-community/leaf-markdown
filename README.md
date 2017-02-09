@@ -52,7 +52,7 @@ Alternatively, you can also directly add the Tag onto your `LeafRenderer` if des
 
 ```swift
 if let leaf = drop.view as? LeafRenderer {
-    leaf.stem.register(Mardown())
+    leaf.stem.register(Markdown())
 }
 ```
 
