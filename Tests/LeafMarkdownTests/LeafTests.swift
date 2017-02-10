@@ -16,7 +16,7 @@ class LeafTests: XCTestCase {
         
         do {
             let node = try run(tag: tag, context: inputMarkdown.makeNode(), arguments: [.constant(value: inputMarkdown)])
-            guard node != nil, case .bytes(let bytes) = node! else {
+            guard let nodeReceived = node, case .bytes(let bytes) = nodeReceived else {
                 XCTFail("Did not retun anything")
                 return
             }
@@ -24,6 +24,23 @@ class LeafTests: XCTestCase {
         }
         catch {
             XCTFail()
+        }
+    }
+    
+    func testNilParameterDoesNotCrashLeaf() {
+        let tag = Markdown()
+        let expectedHtml = ""
+        
+        do {
+            let node = try run(tag: tag, context: nil, arguments: [])
+            guard node != nil, case .bytes(let bytes) = node! else {
+                XCTFail("Did not retun anything")
+                return
+            }
+            XCTAssertEqual(bytes.string, expectedHtml)
+        }
+        catch  {
+            XCTFail("Markdown Tag threw exception")
         }
     }
 }

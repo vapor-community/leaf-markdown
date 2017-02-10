@@ -4,7 +4,6 @@ import SwiftMarkdown
 public final class Markdown: BasicTag {
     
     public enum Error: Swift.Error {
-        case expectedVariable(Argument?)
         case invalidArgument(Argument)
     }
     
@@ -13,12 +12,13 @@ public final class Markdown: BasicTag {
     public let name = "LeafMarkdown"
     
     public func run(arguments: [Argument]) throws -> Node? {
-        guard let markdownArgument = arguments.first else {
-            throw Error.expectedVariable(arguments.first)
-        }
+        var markdown = ""
         
-        guard let markdown = markdownArgument.value?.string else {
-            throw Error.invalidArgument(markdownArgument)
+        if let markdownArgument = arguments.first {
+            guard let markdownArgumentValue = markdownArgument.value?.string else {
+                throw Error.invalidArgument(markdownArgument)
+            }
+            markdown = markdownArgumentValue
         }
         
         let markdownHtml = try markdownToHTML(markdown)
