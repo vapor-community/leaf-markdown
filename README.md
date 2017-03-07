@@ -32,7 +32,7 @@ Add LeafMarkdown as a dependency in your `Package.swift` file:
 ```swift
     dependencies: [
         ...,
-        .Package(url: "https://github.com/brokenhandsio/LeafMarkdown", majorVersion: 0, minor: 1)
+        .Package(url: "https://github.com/brokenhandsio/LeafMarkdown", majorVersion: 0)
     ]
 ```
 
