@@ -9,7 +9,7 @@ public final class Markdown: BasicTag {
     
     public init() { }
      
-    public let name = "LeafMarkdown"
+    public let name = "markdown"
     
     public func run(arguments: [Argument]) throws -> Node? {
         var markdown = ""
