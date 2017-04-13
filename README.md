@@ -1,6 +1,6 @@
 # Leaf Markdown
 
-[![Language](https://img.shields.io/badge/Swift-3-brightgreen.svg)](http://swift.org)
+[![Language](https://img.shields.io/badge/Swift-3.1-brightgreen.svg)](http://swift.org)
 [![Build Status](https://travis-ci.org/brokenhandsio/LeafMarkdown.svg?branch=master)](https://travis-ci.org/brokenhandsio/LeafMarkdown)
 [![codecov](https://codecov.io/gh/brokenhandsio/LeafMarkdown/branch/master/graph/badge.svg)](https://codecov.io/gh/brokenhandsio/LeafMarkdown)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/brokenhandsio/LeafMarkdown/master/LICENSE)
