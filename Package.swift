@@ -1,12 +1,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "vapor-markdown",
-    targets: [
-    	Target(name: "vapor-markdown-example", dependencies: ["vapor-markdown"])
-    ],
+    name: "LeafMarkdown",
     dependencies: [
-    	.Package(url: "https://github.com/vapor/vapor.git", majorVersion: 0, minor: 17),
-    	.Package(url: "https://github.com/czechboy0/cmark.swift.git", majorVersion: 0, minor: 1)
+    	.Package(url: "https://github.com/vapor/vapor.git", Version(2,0,0, prereleaseIdentifiers: ["beta"])),
+    	.Package(url: "https://github.com/brokenhandsio/SwiftMarkdown.git", majorVersion: 0, minor: 1)
     ]
 )
