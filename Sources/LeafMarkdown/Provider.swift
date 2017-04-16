@@ -1,8 +1,7 @@
 import Vapor
+import LeafProvider
 
 public struct Provider: Vapor.Provider {
-    
-    public var provided: Providable = Providable()
     
     public func boot(_ drop: Droplet) {
         guard let renderer = drop.view as? LeafRenderer else {
