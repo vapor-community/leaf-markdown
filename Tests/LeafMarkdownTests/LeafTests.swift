@@ -6,7 +6,8 @@ import Vapor
 
 class LeafTests: XCTestCase {
     static var allTests = [
-        ("testRunTag", testRunTag)
+        ("testRunTag", testRunTag),
+        ("testNilParameterDoesNotCrashLeaf", testNilParameterDoesNotCrashLeaf),
     ]
     
     func testRunTag() {
@@ -15,12 +16,8 @@ class LeafTests: XCTestCase {
         let expectedHtml = "<h1>This is a test</h1>\n<p>We have some text in a tag</p>\n"
         
         do {
-            let node = try run(tag: tag, context: inputMarkdown.makeNode(), arguments: [.constant(value: inputMarkdown)])
-            guard let nodeReceived = node, case .bytes(let bytes) = nodeReceived else {
-                XCTFail("Did not retun anything")
-                return
-            }
-            XCTAssertEqual(bytes.string, expectedHtml)
+            let node = try run(tag: tag, context: inputMarkdown.makeNode(in: nil), arguments: [.constant(value: inputMarkdown)])
+            XCTAssertEqual(node?.string, expectedHtml)
         }
         catch {
             XCTFail()
@@ -33,11 +30,7 @@ class LeafTests: XCTestCase {
         
         do {
             let node = try run(tag: tag, context: nil, arguments: [])
-            guard node != nil, case .bytes(let bytes) = node! else {
-                XCTFail("Did not retun anything")
-                return
-            }
-            XCTAssertEqual(bytes.string, expectedHtml)
+            XCTAssertEqual(node?.string, expectedHtml)
         }
         catch  {
             XCTFail("Markdown Tag threw exception")

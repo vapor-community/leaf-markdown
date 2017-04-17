@@ -1,5 +1,6 @@
 import XCTest
 import Vapor
+import LeafProvider
 
 @testable import LeafMarkdown
 
@@ -9,9 +10,10 @@ class ProviderTests: XCTestCase {
         ("testProviderGracefullyHandlesNonLeafRenderer", testProviderGracefullyHandlesNonLeafRenderer)
     ]
     
-    func testProviderAddsTagToLeaf() {
-        let drop = Droplet()
-        let leafProvider = Provider()
+    func testProviderAddsTagToLeaf() throws {
+        let drop = try Droplet()
+        drop.view = LeafRenderer(viewsDir: "views")
+        let leafProvider = LeafMarkdown.Provider()
         leafProvider.boot(drop)
         
         guard let leaf = drop.view as? LeafRenderer else {
@@ -22,20 +24,17 @@ class ProviderTests: XCTestCase {
         XCTAssertNotNil(leaf.stem.tags[Markdown().name])
     }
     
-    func testProviderGracefullyHandlesNonLeafRenderer() {
-        let drop = Droplet()
-        let stubbedRenderer = StubbedRenderer(viewsDir: "")
-        drop.view = stubbedRenderer
-        let leafProvider = Provider()
+    func testProviderGracefullyHandlesNonLeafRenderer() throws {
+        let drop = try Droplet()
+        drop.view = StubbedRenderer()
+        let leafProvider = LeafMarkdown.Provider()
         leafProvider.boot(drop)
         XCTAssert(true, "We should reach this point")
     }
 }
 
 struct StubbedRenderer: ViewRenderer {
-    init(viewsDir: String) {}
-    
     func make(_ path: String, _ context: Node) throws -> View {
-        return try View(bytes: "Stubbed renderer".bytes)
+        return View(bytes: "Stubbed renderer".bytes)
     }
 }
