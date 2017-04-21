@@ -11,8 +11,10 @@ class ProviderTests: XCTestCase {
     ]
     
     func testProviderAddsTagToLeaf() throws {
-        let drop = try Droplet()
-        drop.view = LeafRenderer(viewsDir: "views")
+        var config = Config([:])
+        try config.set("droplet.view", "leaf")
+        try config.addProvider(LeafProvider.Provider.self)
+        let drop = try Droplet(config)
         let leafProvider = LeafMarkdown.Provider()
         leafProvider.boot(drop)
         
@@ -26,15 +28,8 @@ class ProviderTests: XCTestCase {
     
     func testProviderGracefullyHandlesNonLeafRenderer() throws {
         let drop = try Droplet()
-        drop.view = StubbedRenderer()
         let leafProvider = LeafMarkdown.Provider()
         leafProvider.boot(drop)
         XCTAssert(true, "We should reach this point")
-    }
-}
-
-struct StubbedRenderer: ViewRenderer {
-    func make(_ path: String, _ context: Node) throws -> View {
-        return View(bytes: "Stubbed renderer".bytes)
     }
 }

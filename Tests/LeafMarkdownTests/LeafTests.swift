@@ -43,7 +43,7 @@ extension LeafTests {
         let context = Context(node)
         
         return try tag.run(
-            stem: Stem(workingDirectory: ""),
+            stem: Stem(DataFile(workDir: "")),
             context: context,
             tagTemplate: TagTemplate(name: "", parameters: [], body: nil),
             arguments: arguments
