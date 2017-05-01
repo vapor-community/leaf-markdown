@@ -1,7 +1,7 @@
 import Leaf
 import SwiftMarkdown
 
-public final class Markdown: BasicTag {
+public final class Markdown: Tag {
     
     public enum Error: Swift.Error {
         case invalidArgument(Argument)
@@ -11,11 +11,15 @@ public final class Markdown: BasicTag {
      
     public let name = "markdown"
     
-    public func run(arguments: [Argument]) throws -> Node? {
+    public func shouldRender(stem: Stem, context: Context, tagTemplate: TagTemplate, arguments: [Argument], value: Node?) -> Bool{
+        return true
+    }
+    
+    public func run(stem: Stem, context: Context, tagTemplate: TagTemplate, arguments: [Argument]) throws -> Node? {
         var markdown = ""
         
         if let markdownArgument = arguments.first {
-            guard let markdownArgumentValue = markdownArgument.value?.string else {
+            guard let markdownArgumentValue = markdownArgument.value(with: stem, in: context)?.string else {
                 throw Error.invalidArgument(markdownArgument)
             }
             markdown = markdownArgumentValue

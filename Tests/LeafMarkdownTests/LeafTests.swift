@@ -16,7 +16,7 @@ class LeafTests: XCTestCase {
         let expectedHtml = "<h1>This is a test</h1>\n<p>We have some text in a tag</p>\n"
         
         do {
-            let node = try run(tag: tag, context: inputMarkdown.makeNode(in: nil), arguments: [.constant(value: inputMarkdown)])
+            let node = try run(tag: tag, context: inputMarkdown.makeNode(in: nil), arguments: [.constant(Leaf(raw: inputMarkdown, components: [.raw(inputMarkdown.makeBytes())]))])
             XCTAssertEqual(node?.string, expectedHtml)
         }
         catch {
