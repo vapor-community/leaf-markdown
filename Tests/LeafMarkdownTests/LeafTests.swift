@@ -41,12 +41,11 @@ class LeafTests: XCTestCase {
 extension LeafTests {    
     func run(tag: Tag, context node: Node, arguments: [Argument]) throws -> Node? {
         let context = Context(node)
+        let argumentList = ArgumentList(list: arguments, stem: Stem(DataFile(workDir: "")), context: context)
         
         return try tag.run(
-            stem: Stem(DataFile(workDir: "")),
-            context: context,
             tagTemplate: TagTemplate(name: "", parameters: [], body: nil),
-            arguments: arguments
+            arguments: argumentList
         )
     }
 }
