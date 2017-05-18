@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import LeafMarkdownTests
+@testable import MarkdownProviderTests
 
 XCTMain([
     testCase(LeafTests.allTests),

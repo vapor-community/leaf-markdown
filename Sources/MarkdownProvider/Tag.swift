@@ -15,21 +15,6 @@ public final class Markdown: Tag {
         return true
     }
     
-//    public func run(stem: Stem, context: Context, tagTemplate: TagTemplate, arguments: [Argument]) throws -> Node? {
-//        var markdown = ""
-//        
-//        if let markdownArgument = arguments.first {
-//            guard let markdownArgumentValue = markdownArgument.value(with: stem, in: context)?.string else {
-//                throw Error.invalidArgument(markdownArgument)
-//            }
-//            markdown = markdownArgumentValue
-//        }
-//        
-//        let markdownHtml = try markdownToHTML(markdown)
-//        let unescaped = markdownHtml.bytes
-//        return .bytes(unescaped)
-//    }
-    
     public func run(tagTemplate: TagTemplate, arguments: ArgumentList) throws -> Node? {
         var markdown = ""
         
@@ -38,10 +23,6 @@ public final class Markdown: Tag {
                 throw Error.invalidArgument(arguments.list.first)
             }
             markdown = markdownArgumentValue
-//            guard let markdownArgumentValue = markdownArgument.value(with: stem, in: context)?.string else {
-//                throw Error.invalidArgument(markdownArgument)
-//            }
-//            markdown = markdownArgumentValue
         }
         
         let markdownHtml = try markdownToHTML(markdown)

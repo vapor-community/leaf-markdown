@@ -2,7 +2,7 @@ import XCTest
 import Vapor
 import LeafProvider
 
-@testable import LeafMarkdown
+@testable import MarkdownProvider
 
 class ProviderTests: XCTestCase {
     static var allTests = [
@@ -15,7 +15,7 @@ class ProviderTests: XCTestCase {
         try config.set("droplet.view", "leaf")
         try config.addProvider(LeafProvider.Provider.self)
         let drop = try Droplet(config)
-        let leafProvider = LeafMarkdown.Provider()
+        let leafProvider = MarkdownProvider.Provider()
         leafProvider.boot(drop)
         
         guard let leaf = drop.view as? LeafRenderer else {
@@ -28,7 +28,7 @@ class ProviderTests: XCTestCase {
     
     func testProviderGracefullyHandlesNonLeafRenderer() throws {
         let drop = try Droplet()
-        let leafProvider = LeafMarkdown.Provider()
+        let leafProvider = MarkdownProvider.Provider()
         leafProvider.boot(drop)
         XCTAssert(true, "We should reach this point")
     }

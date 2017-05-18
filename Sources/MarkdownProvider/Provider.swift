@@ -3,7 +3,7 @@ import LeafProvider
 
 public struct Provider: Vapor.Provider {
     
-    public static let repositoryName = "leaf-markdown"
+    public static let repositoryName = "markdown-provider"
     
     public func boot(_ drop: Droplet) {
         guard let renderer = drop.view as? LeafRenderer else {

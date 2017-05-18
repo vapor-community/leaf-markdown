@@ -1,7 +1,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "LeafMarkdown",
+    name: "MarkdownProvider",
     dependencies: [
     	.Package(url: "https://github.com/vapor/vapor.git", majorVersion: 2),
         .Package(url: "https://github.com/vapor/leaf-provider.git", majorVersion: 1),
