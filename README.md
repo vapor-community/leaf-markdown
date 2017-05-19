@@ -38,11 +38,12 @@ Add Markdown Provider as a dependency in your `Package.swift` file:
 
 ### Add the Provider
 
-You can add a provider to you `Droplet`, which will do all of the setup for you and register your tag. Just add it as so:
+You can add a provider to you `Config`, which will do all of the setup for you and register your tag. Just add it as so:
 
 ```swift
-let drop = Droplet()
-try drop.addProvider(MarkdownProvider.Provider.self)
+let config = try Config()
+try config.addProvider(MarkdownProvider.Provider.self)
+let drop = try Droplet(config)
 ```
 
 
