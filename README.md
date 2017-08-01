@@ -32,7 +32,7 @@ Add Markdown Provider as a dependency in your `Package.swift` file:
 ```swift
     dependencies: [
         ...,
-        .Package(url: "https://github.com/vapor-community/markdown-provider", majorVersion: 0)
+        .Package(url: "https://github.com/vapor-community/markdown-provider.git", majorVersion: 1)
     ]
 ```
 
