@@ -1,6 +1,6 @@
 # Markdown Provider
 
-[![Language](https://img.shields.io/badge/Swift-3.1-brightgreen.svg)](http://swift.org)
+[![Language](https://img.shields.io/badge/Swift-4-brightgreen.svg)](http://swift.org)
 [![Build Status](https://travis-ci.org/vapor-community/markdown-provider.svg?branch=master)](https://travis-ci.org/vapor-community/markdown-provider)
 [![codecov](https://codecov.io/gh/vapor-community/markdown-provider/branch/master/graph/badge.svg)](https://codecov.io/gh/vapor-community/mmarkdown-provider)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vapor-community/markdown-provider/master/LICENSE)
@@ -32,7 +32,7 @@ Add Markdown Provider as a dependency in your `Package.swift` file:
 ```swift
     dependencies: [
         ...,
-        .Package(url: "https://github.com/vapor-community/markdown-provider.git", majorVersion: 1)
+        .package(url: "https://github.com/vapor-community/markdown-provider.git", .upToNextMajor(from: "1.1.0"))
     ]
 ```
 
@@ -49,7 +49,7 @@ let drop = try Droplet(config)
 
 ### Register with Leaf
 
-Alternatively, you can also directly add the Tag onto your `LeafRenderer` if desired. During your setup (for example, in `main.swift`), register your tag as so:
+Alternatively, you can also directly add the Tag onto your `LeafRenderer` if desired. During your setup (for example, in `Droplet+Setup.swift`), register your tag as so:
 
 ```swift
 if let leaf = drop.view as? LeafRenderer {
