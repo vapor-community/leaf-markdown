@@ -28,4 +28,4 @@ script:
         fi
 
 after_success:
-    - eval "$(curl -sL https://raw.githubusercontent.com/vapor-community/swift/master/codecov)"
+    - eval "$(curl -sL https://raw.githubusercontent.com/vapor-community/swift/swift-4-codecov/codecov-swift4)"
