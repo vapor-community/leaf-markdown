@@ -1,6 +1,6 @@
 import XCTest
 import Vapor
-import LeafProvider
+import Leaf
 
 @testable import MarkdownProvider
 
@@ -11,25 +11,21 @@ class ProviderTests: XCTestCase {
     ]
     
     func testProviderAddsTagToLeaf() throws {
-        var config = Config([:])
-        try config.set("droplet.view", "leaf")
-        try config.addProvider(LeafProvider.Provider.self)
-        let drop = try Droplet(config)
-        let leafProvider = MarkdownProvider.Provider()
-        leafProvider.boot(drop)
-        
-        guard let leaf = drop.view as? LeafRenderer else {
-            XCTFail()
-            return
-        }
-        
-        XCTAssertNotNil(leaf.stem.tags[Markdown().name])
+        var services = Services.default()
+        let leafProvider = LeafProvider()
+        services.use(leafProvider)
+        services.use(MarkdownProvider.Provider.self)
+        let app = try Application(services: services)
+
+        let renderer = try app.make(LeafRenderer.self, for: ViewRenderer.self)
+
+        XCTAssertNotNil(renderer.tags[Markdown().name])
     }
     
     func testProviderGracefullyHandlesNonLeafRenderer() throws {
-        let drop = try Droplet()
+        let app = try Application()
         let leafProvider = MarkdownProvider.Provider()
-        leafProvider.boot(drop)
+        try leafProvider.boot(app)
         XCTAssert(true, "We should reach this point")
     }
 }

@@ -4,6 +4,8 @@ import Async
 
 public final class Markdown: LeafTag {
 
+    public let name = "markdown"
+
     public func render(parsed: ParsedTag, context: LeafContext, renderer: LeafRenderer) throws -> Future<LeafData?> {
         return Future(nil)
     }

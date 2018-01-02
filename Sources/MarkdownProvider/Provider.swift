@@ -6,7 +6,7 @@ public struct Provider: Vapor.Provider {
     public static let repositoryName = "markdown-provider"
 
     public func register(_ services: inout Services) throws {
-        
+        print("Registered")
     }
 
     public func boot(_ worker: Container) throws {

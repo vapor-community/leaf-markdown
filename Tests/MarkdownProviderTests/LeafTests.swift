@@ -9,15 +9,24 @@ class LeafTests: XCTestCase {
         ("testRunTag", testRunTag),
         ("testNilParameterDoesNotCrashLeaf", testNilParameterDoesNotCrashLeaf),
     ]
+
+    var renderer: LeafRenderer!
+    let template = "#markdown(data)"
+
+    override func setUp() {
+        let queue = DispatchEventLoop(label: "io.brokenhands.markdown-provider.test")
+        let tag = Markdown()
+        self.renderer = LeafRenderer(config: LeafConfig(tags: [tag.name: tag]), on: queue)
+    }
     
     func testRunTag() {
-        let tag = Markdown()
         let inputMarkdown = "# This is a test\n\nWe have some text in a tag"
+        let data = LeafData.dictionary(["data": .string(inputMarkdown)])
         let expectedHtml = "<h1>This is a test</h1>\n<p>We have some text in a tag</p>\n"
-        
+
         do {
-            let node = try run(tag: tag, context: inputMarkdown.makeNode(in: nil), arguments: [.constant(Leaf(raw: inputMarkdown, components: [.raw(inputMarkdown.makeBytes())]))])
-            XCTAssertEqual(node?.string, expectedHtml)
+            let result = try renderer.render(template, context: LeafContext(data: data)).blockingAwait()
+            XCTAssertEqual(result, expectedHtml)
         }
         catch {
             XCTFail()
@@ -25,27 +34,15 @@ class LeafTests: XCTestCase {
     }
     
     func testNilParameterDoesNotCrashLeaf() {
-        let tag = Markdown()
+        let data = LeafData.dictionary(["data": .null])
         let expectedHtml = ""
-        
-        do {
-            let node = try run(tag: tag, context: nil, arguments: [])
-            XCTAssertEqual(node?.string, expectedHtml)
-        }
-        catch  {
-            XCTFail("Markdown Tag threw exception")
-        }
-    }
-}
 
-extension LeafTests {    
-    func run(tag: Tag, context node: Node, arguments: [Argument]) throws -> Node? {
-        let context = Context(node)
-        let argumentList = ArgumentList(list: arguments, stem: Stem(DataFile(workDir: "")), context: context)
-        
-        return try tag.run(
-            tagTemplate: TagTemplate(name: "", parameters: [], body: nil),
-            arguments: argumentList
-        )
+        do {
+            let result = try renderer.render(template, context: LeafContext(data: data)).blockingAwait()
+            XCTAssertEqual(result, expectedHtml)
+        }
+        catch {
+            XCTFail()
+        }
     }
 }
