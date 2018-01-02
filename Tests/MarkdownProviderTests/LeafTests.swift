@@ -7,7 +7,7 @@ import Vapor
 class LeafTests: XCTestCase {
     static var allTests = [
         ("testRunTag", testRunTag),
-        ("testNilParameterDoesNotCrashLeaf", testNilParameterDoesNotCrashLeaf),
+        ("testNilParameterDoesNotCrashLeaf", testNilParameterDoesNotCrashLeaf)
     ]
 
     var renderer: LeafRenderer!
@@ -18,7 +18,7 @@ class LeafTests: XCTestCase {
         let tag = Markdown()
         self.renderer = LeafRenderer(config: LeafConfig(tags: [tag.name: tag]), on: queue)
     }
-    
+
     func testRunTag() throws {
         let inputMarkdown = "# This is a test\n\nWe have some text in a tag"
         let data = LeafData.dictionary(["data": .string(inputMarkdown)])
@@ -27,7 +27,7 @@ class LeafTests: XCTestCase {
         let result = try renderer.render(template, context: LeafContext(data: data)).blockingAwait()
         XCTAssertEqual(result, expectedHtml)
     }
-    
+
     func testNilParameterDoesNotCrashLeaf() throws {
         let data = LeafData.dictionary(["data": .null])
         let expectedHtml = ""

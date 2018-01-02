@@ -9,7 +9,7 @@ class ProviderTests: XCTestCase {
         ("testProviderCreation", testProviderAddsTagToLeaf),
         ("testProviderGracefullyHandlesNonLeafRenderer", testProviderGracefullyHandlesNonLeafRenderer)
     ]
-    
+
     func testProviderAddsTagToLeaf() throws {
         var services = Services.default()
         let leafProvider = LeafProvider()
@@ -21,7 +21,7 @@ class ProviderTests: XCTestCase {
 
         XCTAssertNotNil(renderer.tags[Markdown().name])
     }
-    
+
     func testProviderGracefullyHandlesNonLeafRenderer() throws {
         let app = try Application()
         let leafProvider = MarkdownProvider.Provider()

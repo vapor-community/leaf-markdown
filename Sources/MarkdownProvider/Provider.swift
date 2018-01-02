@@ -10,7 +10,8 @@ public struct Provider: Vapor.Provider {
     }
 
     public func boot(_ worker: Container) throws {
-
+        let renderer = try worker.make(LeafRenderer.self, for: ViewRenderer.self)
+        renderer.tags
     }
 //
 //    public func boot(_ drop: Droplet) {
