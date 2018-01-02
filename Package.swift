@@ -1,10 +1,19 @@
+// swift-tools-version:4.0
+
 import PackageDescription
 
 let package = Package(
     name: "MarkdownProvider",
+    products: [
+        .library(name: "MarkdownProvider", targets: ["MarkdownProvider"]),
+    ],
     dependencies: [
-    	.Package(url: "https://github.com/vapor/vapor.git", majorVersion: 2),
-        .Package(url: "https://github.com/vapor/leaf-provider.git", majorVersion: 1),
-    	.Package(url: "https://github.com/vapor-community/markdown.git", majorVersion: 0)
+    	.package(url: "https://github.com/vapor/vapor.git", .branch("beta")),
+        .package(url: "https://github.com/vapor/leaf.git", .branch("beta")),
+        .package(url: "https://github.com/vapor-community/markdown.git", .upToNextMajor(from: "0.4.0")),
+    ],
+    targets: [
+        .target(name: "MarkdownProvider", dependencies: ["Vapor", "Leaf", "SwiftMarkdown"]),
+        .testTarget(name: "MarkdownProviderTests", dependencies: ["MarkdownProvider"]),
     ]
 )

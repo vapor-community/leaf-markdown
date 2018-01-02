@@ -19,13 +19,6 @@ script:
     - swift build
     - swift build -c release
     - swift test
-    - if [ $TRAVIS_OS_NAME != "osx" ]; then
-            sudo apt-get remove vapor;
-            sudo apt-get install swift=3.1.1;
-            swift build;
-            swift build -c release;
-            swift test;
-        fi
 
 after_success:
     - eval "$(curl -sL https://raw.githubusercontent.com/vapor-community/swift/swift-4-codecov/codecov-swift4)"
