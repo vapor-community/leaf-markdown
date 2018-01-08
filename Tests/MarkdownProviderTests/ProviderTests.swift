@@ -13,8 +13,8 @@ class ProviderTests: XCTestCase {
     func testProviderAddsTagToLeaf() throws {
         var services = Services.default()
         let leafProvider = LeafProvider()
-        services.use(leafProvider)
-        services.use(MarkdownProvider.Provider.self)
+        try services.register(leafProvider)
+        try services.register(MarkdownProvider.Provider())
         let app = try Application(services: services)
 
         let renderer = try app.make(LeafRenderer.self, for: ViewRenderer.self)
@@ -23,9 +23,9 @@ class ProviderTests: XCTestCase {
     }
 
     func testProviderGracefullyHandlesNonLeafRenderer() throws {
-        let app = try Application()
-        let leafProvider = MarkdownProvider.Provider()
-        try leafProvider.boot(app)
+        var services = Services.default()
+        try services.register(MarkdownProvider.Provider())
+        _ = try Application(services: services)
         XCTAssert(true, "We should reach this point")
     }
 }

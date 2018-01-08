@@ -10,8 +10,11 @@ public struct Provider: Vapor.Provider {
     }
 
     public func boot(_ worker: Container) throws {
-        let renderer = try worker.make(LeafRenderer.self, for: ViewRenderer.self)
-        renderer.tags
+        do {
+            let renderer = try worker.make(LeafRenderer.self, for: ViewRenderer.self)
+        } catch is ServiceError {
+            print("Markdown Provider only supports Leaf as a renderer - make sure the Leaf Provider has been registered")
+        }
     }
 //
 //    public func boot(_ drop: Droplet) {
@@ -22,9 +25,4 @@ public struct Provider: Vapor.Provider {
 //
 //        renderer.stem.register(Markdown())
 //    }
-//
-//    public init(config: Config) throws {}
-//    public init() {}
-//    public func boot(_ config: Config) throws {}
-//    public func beforeRun(_: Vapor.Droplet) {}
 }
