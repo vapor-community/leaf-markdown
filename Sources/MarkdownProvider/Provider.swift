@@ -6,12 +6,14 @@ public struct Provider: Vapor.Provider {
     public static let repositoryName = "markdown-provider"
 
     public func register(_ services: inout Services) throws {
-        print("Registered")
+        var tags = LeafTagConfig.default()
+        tags.use(Markdown(), as: "markdown")
+        services.register(tags)
     }
 
     public func boot(_ worker: Container) throws {
         do {
-            let renderer = try worker.make(LeafRenderer.self, for: ViewRenderer.self)
+            _ = try worker.make(LeafRenderer.self, for: TemplateRenderer.self)
         } catch is ServiceError {
             print("Markdown Provider only supports Leaf as a renderer - make sure the Leaf Provider has been registered")
         }

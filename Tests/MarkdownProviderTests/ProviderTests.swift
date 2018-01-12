@@ -17,7 +17,7 @@ class ProviderTests: XCTestCase {
         try services.register(MarkdownProvider.Provider())
         let app = try Application(services: services)
 
-        let renderer = try app.make(LeafRenderer.self, for: ViewRenderer.self)
+        let renderer = try app.make(LeafRenderer.self, for: TemplateRenderer.self)
 
         XCTAssertNotNil(renderer.tags[Markdown().name])
     }

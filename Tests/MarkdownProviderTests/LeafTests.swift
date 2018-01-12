@@ -15,24 +15,29 @@ class LeafTests: XCTestCase {
 
     override func setUp() {
         let queue = DispatchEventLoop(label: "io.brokenhands.markdown-provider.test")
+        let container = BasicContainer(config: .init(), environment: .testing, services: .init(), on: queue)
         let tag = Markdown()
-        self.renderer = LeafRenderer(config: LeafConfig(tags: [tag.name: tag]), on: queue)
+        var leafTagConfig = LeafTagConfig.default()
+        leafTagConfig.use(tag, as: tag.name)
+        self.renderer = LeafRenderer(config: LeafConfig(tags: leafTagConfig, viewsDir: "", shouldCache: false), using: container)
     }
 
     func testRunTag() throws {
         let inputMarkdown = "# This is a test\n\nWe have some text in a tag"
-        let data = LeafData.dictionary(["data": .string(inputMarkdown)])
+        let data = TemplateData.dictionary(["data": .string(inputMarkdown)])
         let expectedHtml = "<h1>This is a test</h1>\n<p>We have some text in a tag</p>\n"
 
-        let result = try renderer.render(template, context: LeafContext(data: data)).blockingAwait()
-        XCTAssertEqual(result, expectedHtml)
+        let result = try renderer.render(template: template.data(using: .utf8)!, data).blockingAwait()
+        let resultString = String(data: result.data, encoding: .utf8)!
+        XCTAssertEqual(resultString, expectedHtml)
     }
 
     func testNilParameterDoesNotCrashLeaf() throws {
-        let data = LeafData.dictionary(["data": .null])
+        let data = TemplateData.dictionary(["data": .null])
         let expectedHtml = ""
 
-        let result = try renderer.render(template, context: LeafContext(data: data)).blockingAwait()
-        XCTAssertEqual(result, expectedHtml)
+        let result = try renderer.render(template: template.data(using: .utf8)!, data).blockingAwait()
+        let resultString = String(data: result.data, encoding: .utf8)!
+        XCTAssertEqual(resultString, expectedHtml)
     }
 }

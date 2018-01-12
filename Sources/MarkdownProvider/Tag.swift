@@ -2,30 +2,27 @@ import Leaf
 import SwiftMarkdown
 import Async
 
-public final class Markdown: LeafTag {
+public final class Markdown: TagRenderer {
 
     public enum Error: Swift.Error {
-        case invalidArgument(LeafData?)
+        case invalidArgument(TemplateData?)
     }
 
     public let name = "markdown"
 
-    public func render(parsed: ParsedTag, context: LeafContext, renderer: LeafRenderer) throws -> Future<LeafData?> {
+    public func render(tag: TagContext) throws -> Future<TemplateData> {
 
         var markdown = ""
 
-        if let markdownArgument = parsed.parameters.first, !markdownArgument.isNull {
+        if let markdownArgument = tag.parameters.first, !markdownArgument.isNull {
             guard let markdownArgumentValue = markdownArgument.string else {
-                throw Error.invalidArgument(parsed.parameters.first)
+                throw Error.invalidArgument(tag.parameters.first)
             }
             markdown = markdownArgumentValue
         }
 
         let markdownHtml = try markdownToHTML(markdown)
-
-        let promise = Promise(LeafData?.self)
-        promise.complete(.string(markdownHtml))
-        return promise.future
+        return Future(.string(markdownHtml))
     }
 
 }
