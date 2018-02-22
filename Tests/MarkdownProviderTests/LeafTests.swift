@@ -14,7 +14,7 @@ class LeafTests: XCTestCase {
     let template = "#markdown(data)"
 
     override func setUp() {
-        let queue = DispatchEventLoop(label: "io.brokenhands.markdown-provider.test")
+      let queue = try! DefaultEventLoop(label: "io.brokenhands.markdown-provider.test")
         let container = BasicContainer(config: .init(), environment: .testing, services: .init(), on: queue)
         let tag = Markdown()
         var leafTagConfig = LeafTagConfig.default()
