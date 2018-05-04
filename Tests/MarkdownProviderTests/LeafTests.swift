@@ -14,7 +14,7 @@ class LeafTests: XCTestCase {
     let template = "#markdown(data)"
 
     override func setUp() {
-      let queue = try! DefaultEventLoop(label: "io.brokenhands.markdown-provider.test")
+        let queue = EmbeddedEventLoop()
         let container = BasicContainer(config: .init(), environment: .testing, services: .init(), on: queue)
         let tag = Markdown()
         var leafTagConfig = LeafTagConfig.default()
@@ -27,7 +27,7 @@ class LeafTests: XCTestCase {
         let data = TemplateData.dictionary(["data": .string(inputMarkdown)])
         let expectedHtml = "<h1>This is a test</h1>\n<p>We have some text in a tag</p>\n"
 
-        let result = try renderer.render(template: template.data(using: .utf8)!, data).blockingAwait()
+        let result = try renderer.render(template: template.data(using: .utf8)!, data).wait()
         let resultString = String(data: result.data, encoding: .utf8)!
         XCTAssertEqual(resultString, expectedHtml)
     }
@@ -36,7 +36,7 @@ class LeafTests: XCTestCase {
         let data = TemplateData.dictionary(["data": .null])
         let expectedHtml = ""
 
-        let result = try renderer.render(template: template.data(using: .utf8)!, data).blockingAwait()
+        let result = try renderer.render(template: template.data(using: .utf8)!, data).wait()
         let resultString = String(data: result.data, encoding: .utf8)!
         XCTAssertEqual(resultString, expectedHtml)
     }
