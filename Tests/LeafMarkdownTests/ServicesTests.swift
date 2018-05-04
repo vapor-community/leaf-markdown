@@ -6,7 +6,7 @@ import LeafMarkdown
 
 class ServicesTests: XCTestCase {
     static var allTests = [
-        ("testTagsCanBeAddedToServices", testTagsCanBeAddedToServices),
+        ("testTagsCanBeAddedToServices", testTagsCanBeAddedToServices)
     ]
 
     func testTagsCanBeAddedToServices() throws {

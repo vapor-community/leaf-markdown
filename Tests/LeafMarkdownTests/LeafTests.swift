@@ -19,7 +19,8 @@ class LeafTests: XCTestCase {
         let tag = Markdown()
         var leafTagConfig = LeafTagConfig.default()
         leafTagConfig.use(tag, as: tag.name)
-        self.renderer = LeafRenderer(config: LeafConfig(tags: leafTagConfig, viewsDir: "", shouldCache: false), using: container)
+        self.renderer = LeafRenderer(config: LeafConfig(tags: leafTagConfig, viewsDir: "", shouldCache: false),
+                                     using: container)
     }
 
     func testRunTag() throws {
