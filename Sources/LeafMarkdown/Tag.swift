@@ -10,6 +10,8 @@ public final class Markdown: TagRenderer {
 
     public let name = "markdown"
 
+    public init() {}
+
     public func render(tag: TagContext) throws -> Future<TemplateData> {
 
         var markdown = ""

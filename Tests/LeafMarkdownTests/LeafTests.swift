@@ -2,7 +2,7 @@ import XCTest
 import Vapor
 
 @testable import Leaf
-@testable import MarkdownProvider
+import LeafMarkdown
 
 class LeafTests: XCTestCase {
     static var allTests = [

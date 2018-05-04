@@ -5,6 +5,8 @@ public struct Provider: Vapor.Provider {
 
     public static let repositoryName = "markdown-provider"
 
+    public init() {}
+
     public func register(_ services: inout Services) throws {
         var tags = LeafTagConfig.default()
         tags.use(Markdown(), as: "markdown")
