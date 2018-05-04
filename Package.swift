@@ -8,8 +8,8 @@ let package = Package(
         .library(name: "MarkdownProvider", targets: ["MarkdownProvider"]),
     ],
     dependencies: [
-    	.package(url: "https://github.com/vapor/vapor.git", from: "3.0.0-beta"),
-        .package(url: "https://github.com/vapor/leaf.git", from: "3.0.0-beta"),
+    	.package(url: "https://github.com/vapor/vapor.git", from: "3.0.0-rc"),
+        .package(url: "https://github.com/vapor/leaf.git", from: "3.0.0-rc"),
         .package(url: "https://github.com/vapor-community/markdown.git", .upToNextMajor(from: "0.4.0")),
     ],
     targets: [

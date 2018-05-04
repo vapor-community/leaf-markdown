@@ -21,8 +21,11 @@ public final class Markdown: TagRenderer {
             markdown = markdownArgumentValue
         }
 
-        let markdownHtml = try markdownToHTML(markdown)
-        return Future(.string(markdownHtml))
+        let markdownHTML = try markdownToHTML(markdown)
+
+        return Future.map(on: tag) {
+            .string(markdownHTML)
+        }
     }
 
 }

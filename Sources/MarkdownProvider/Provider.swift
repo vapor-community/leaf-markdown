@@ -13,10 +13,14 @@ public struct Provider: Vapor.Provider {
 
     public func boot(_ worker: Container) throws {
         do {
-            _ = try worker.make(LeafRenderer.self, for: TemplateRenderer.self)
+            _ = try worker.make(LeafRenderer.self)
         } catch is ServiceError {
             print("Markdown Provider only supports Leaf as a renderer - make sure the Leaf Provider has been registered")
         }
+    }
+
+    public func didBoot(_ container: Container) throws -> EventLoopFuture<Void> {
+        return Future.map(on: container) {}
     }
 //
 //    public func boot(_ drop: Droplet) {
