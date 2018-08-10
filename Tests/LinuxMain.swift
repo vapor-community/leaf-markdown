@@ -1,8 +1,8 @@
 import XCTest
 
-@testable import MarkdownProviderTests
+@testable import LeafMarkdownTests
 
 XCTMain([
     testCase(LeafTests.allTests),
-    testCase(ProviderTests.allTests)
+    testCase(ServicesTests.allTests)
 ])
