@@ -10,7 +10,11 @@ public final class Markdown: TagRenderer {
 
     public let name = "markdown"
 
-    public init() {}
+    private let options: MarkdownOptions?
+
+    public init(options: MarkdownOptions? = nil) {
+        self.options = options
+    }
 
     public func render(tag: TagContext) throws -> Future<TemplateData> {
 
@@ -23,7 +27,13 @@ public final class Markdown: TagRenderer {
             markdown = markdownArgumentValue
         }
 
-        let markdownHTML = try markdownToHTML(markdown)
+        let markdownHTML: String = try {
+            if let options = options {
+                return try markdownToHTML(markdown, options: options)
+            } else {
+                return try markdownToHTML(markdown)
+            }
+        }()
 
         return Future.map(on: tag) {
             .string(markdownHTML)
