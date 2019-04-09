@@ -7,7 +7,9 @@ import LeafMarkdown
 class LeafTests: XCTestCase {
     static var allTests = [
         ("testRunTag", testRunTag),
-        ("testNilParameterDoesNotCrashLeaf", testNilParameterDoesNotCrashLeaf)
+        ("testNilParameterDoesNotCrashLeaf", testNilParameterDoesNotCrashLeaf),
+        ("testStripHtml", testStripHtml),
+        ("testDonotStripHtml", testDonotStripHtml)
     ]
 
     var renderer: LeafRenderer!
@@ -40,5 +42,36 @@ class LeafTests: XCTestCase {
         let result = try renderer.render(template: template.data(using: .utf8)!, data).wait()
         let resultString = String(data: result.data, encoding: .utf8)!
         XCTAssertEqual(resultString, expectedHtml)
+    }
+
+    func testStripHtml() throws {
+        let inputMarkdown = "<br>"
+        let data = TemplateData.dictionary(["data": .string(inputMarkdown)])
+        let expectedHtml = "<!-- raw HTML omitted -->\n"
+
+        let result = try renderer.render(template: template.data(using: .utf8)!, data).wait()
+        let resultString = String(data: result.data, encoding: .utf8)!
+        XCTAssertEqual(resultString, expectedHtml)
+
+    }
+
+    func testDonotStripHtml() throws {
+
+        let queue = EmbeddedEventLoop()
+        let container = BasicContainer(config: .init(), environment: .testing, services: .init(), on: queue)
+        let tag = Markdown(options: [])
+        var leafTagConfig = LeafTagConfig.default()
+        leafTagConfig.use(tag, as: tag.name)
+        let renderer = LeafRenderer(config: LeafConfig(tags: leafTagConfig, viewsDir: "", shouldCache: false),
+                                     using: container)
+
+        let inputMarkdown = "<br>"
+        let data = TemplateData.dictionary(["data": .string(inputMarkdown)])
+        let expectedHtml = "<br>\n"
+
+        let result = try renderer.render(template: template.data(using: .utf8)!, data).wait()
+        let resultString = String(data: result.data, encoding: .utf8)!
+        XCTAssertEqual(resultString, expectedHtml)
+
     }
 }
