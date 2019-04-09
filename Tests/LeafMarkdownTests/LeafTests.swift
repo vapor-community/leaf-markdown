@@ -9,7 +9,7 @@ class LeafTests: XCTestCase {
         ("testRunTag", testRunTag),
         ("testNilParameterDoesNotCrashLeaf", testNilParameterDoesNotCrashLeaf),
         ("testStripHtml", testStripHtml),
-        ("testDonotStripHtml", testDonotStripHtml)
+        ("testDoNotStripHtml", testDoNotStripHtml)
     ]
 
     var renderer: LeafRenderer!
@@ -55,7 +55,7 @@ class LeafTests: XCTestCase {
 
     }
 
-    func testDonotStripHtml() throws {
+    func testDoNotStripHtml() throws {
 
         let queue = EmbeddedEventLoop()
         let container = BasicContainer(config: .init(), environment: .testing, services: .init(), on: queue)
