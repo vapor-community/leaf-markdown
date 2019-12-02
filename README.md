@@ -1,7 +1,7 @@
 # Leaf Markdown
 
-[![Language](https://img.shields.io/badge/Swift-4-brightgreen.svg)](http://swift.org)
-[![Build Status](https://travis-ci.org/vapor-community/leaf-markdown.svg?branch=master)](https://travis-ci.org/vapor-community/leaf-markdown)
+[![Language](https://img.shields.io/badge/Swift-5.1-brightgreen.svg)](http://swift.org)
+[![Build Status](https://github.com/vapor-community/leaf-markdown/workflows/CI/badge.svg?branch=master)](https://github.com/vapor-community/leaf-markdown/actions)
 [![codecov](https://codecov.io/gh/vapor-community/leaf-markdown/branch/master/graph/badge.svg)](https://codecov.io/gh/vapor-community/leaf-markdown)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vapor-community/leaf-markdown/master/LICENSE)
 
