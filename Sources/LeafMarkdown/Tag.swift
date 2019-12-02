@@ -1,6 +1,5 @@
-import Leaf
+import TemplateKit
 import SwiftMarkdown
-import Async
 
 public final class Markdown: TagRenderer {
 
@@ -11,7 +10,7 @@ public final class Markdown: TagRenderer {
     public let name = "markdown"
 
     private let options: MarkdownOptions?
-
+ 
     public init(options: MarkdownOptions? = nil) {
         self.options = options
     }
