@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 
 import PackageDescription
 
@@ -15,7 +15,13 @@ let package = Package(
         .package(url: "https://github.com/vapor/leaf-kit.git", from: "1.0.0"),
     ],
     targets: [
-        .target(name: "LeafMarkdown", dependencies: ["LeafKit", "SwiftMarkdown"]),
-        .testTarget(name: "LeafMarkdownTests", dependencies: ["LeafMarkdown", "LeafKit"]),
+        .target(name: "LeafMarkdown", dependencies: [
+            .product(name: "LeafKit", package: "leaf-kit"),
+            .product(name: "SwiftMarkdown", package: "markdown"),
+        ]),
+        .testTarget(name: "LeafMarkdownTests", dependencies: [
+            .target(name: "LeafMarkdown"),
+            .product(name: "LeafKit", package: "leaf-kit"),
+        ]),
     ]
 )
