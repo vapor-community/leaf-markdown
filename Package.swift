@@ -17,7 +17,7 @@ let package = Package(
     targets: [
         .target(name: "LeafMarkdown", dependencies: [
             .product(name: "LeafKit", package: "leaf-kit"),
-            .product(name: "SwiftMarkdown", package: "SwiftMarkdown"),
+            .product(name: "SwiftMarkdown", package: "markdown"),
         ]),
         .testTarget(name: "LeafMarkdownTests", dependencies: [
             .target(name: "LeafMarkdown"),
