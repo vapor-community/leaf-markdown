@@ -67,7 +67,7 @@ class MarkdownTests: XCTestCase {
         let loop = EmbeddedEventLoop()
         let config = LeafConfiguration(rootDirectory: Process().currentDirectoryPath)
         var tags = defaultTags
-        tags["markdown"] = Markdown(options: [])
+        tags["markdown"] = Markdown(options: [.init(rawValue: 1 << 17)])
         let renderer = LeafRenderer(
             configuration: config,
             tags: tags,
