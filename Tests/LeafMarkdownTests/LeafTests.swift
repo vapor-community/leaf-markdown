@@ -60,14 +60,18 @@ class MarkdownTests: XCTestCase {
         let result = try renderer.render(template, context: ["data": .string(inputMarkdown)])
         let resultString = result.getString(at: 0, length: result.readableBytes)
         XCTAssertEqual(resultString, expectedHtml)
+    }
 
+    func testRejectBadData() throws {
+        let data = LeafData.lazy { .null }
+        XCTAssertThrowsError(try renderer.render(template, context: ["data": data]))
     }
 
     func testDoNotStripHtml() throws {
         let loop = EmbeddedEventLoop()
         let config = LeafConfiguration(rootDirectory: Process().currentDirectoryPath)
         var tags = defaultTags
-        tags["markdown"] = Markdown(options: [.init(rawValue: 1 << 17)])
+        tags["markdown"] = Markdown(options: [.unsafe])
         let renderer = LeafRenderer(
             configuration: config,
             tags: tags,
