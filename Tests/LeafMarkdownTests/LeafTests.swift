@@ -56,7 +56,7 @@ class LeafTests: XCTestCase {
 
         let queue = EmbeddedEventLoop()
         let container = BasicContainer(config: .init(), environment: .testing, services: .init(), on: queue)
-        let tag = Markdown(options: [])
+        let tag = Markdown(options: [.unsafe])
         var leafTagConfig = LeafTagConfig.default()
         leafTagConfig.use(tag, as: tag.name)
         let renderer = LeafRenderer(config: LeafConfig(tags: leafTagConfig, viewsDir: "", shouldCache: false),

@@ -9,7 +9,7 @@ let package = Package(
     ],
     dependencies: [
     	.package(url: "https://github.com/vapor/template-kit.git", from: "1.4.0"),
-        .package(url: "https://github.com/vapor-community/markdown.git", from: "0.5.0"),
+        .package(url: "https://github.com/vapor-community/markdown.git", from: "0.6.1"),
         .package(url: "https://github.com/vapor/leaf.git", from: "3.0.0"),
     ],
     targets: [
