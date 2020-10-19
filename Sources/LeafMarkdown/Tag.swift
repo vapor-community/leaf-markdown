@@ -19,7 +19,7 @@ public final class Markdown: TagRenderer {
 
         var markdown = ""
 
-        if let markdownArgument = tag.parameters.first, !markdownArgument.isNull {
+        if let markdownArgument = tag.parameters.first, !markdownArgument.isNil {
             guard let markdownArgumentValue = markdownArgument.string else {
                 throw Error.invalidArgument(tag.parameters.first)
             }
