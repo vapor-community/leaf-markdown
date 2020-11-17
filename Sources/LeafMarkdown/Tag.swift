@@ -15,7 +15,7 @@ public struct Markdown: LeafTag {
     public func render(_ ctx: LeafContext) throws -> LeafData {
         var markdown = ""
         
-        if let markdownArgument = ctx.parameters.first, !markdownArgument.isNull {
+        if let markdownArgument = ctx.parameters.first, !markdownArgument.isNil {
             guard let markdownArgumentValue = markdownArgument.string else {
                 throw Error.invalidArgument(ctx.parameters.first)
             }
