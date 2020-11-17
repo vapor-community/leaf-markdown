@@ -1,42 +1,34 @@
-import TemplateKit
+import LeafKit
 import SwiftMarkdown
 
-public final class Markdown: TagRenderer {
-
+public struct Markdown: LeafTag {
     public enum Error: Swift.Error {
-        case invalidArgument(TemplateData?)
+        case invalidArgument(LeafData?)
     }
-
-    public let name = "markdown"
-
+    
     private let options: MarkdownOptions?
- 
+    
     public init(options: MarkdownOptions? = nil) {
         self.options = options
     }
-
-    public func render(tag: TagContext) throws -> Future<TemplateData> {
-
+    
+    public func render(_ ctx: LeafContext) throws -> LeafData {
         var markdown = ""
-
-        if let markdownArgument = tag.parameters.first, !markdownArgument.isNull {
+        
+        if let markdownArgument = ctx.parameters.first, !markdownArgument.isNil {
             guard let markdownArgumentValue = markdownArgument.string else {
-                throw Error.invalidArgument(tag.parameters.first)
+                throw Error.invalidArgument(ctx.parameters.first)
             }
             markdown = markdownArgumentValue
         }
 
-        let markdownHTML: String = try {
-            if let options = options {
-                return try markdownToHTML(markdown, options: options)
-            } else {
-                return try markdownToHTML(markdown)
-            }
-        }()
-
-        return Future.map(on: tag) {
-            .string(markdownHTML)
+        let markdownHTML: String
+        if let options = options {
+            markdownHTML = try markdownToHTML(markdown, options: options)
+        } else {
+            markdownHTML = try markdownToHTML(markdown)
         }
-    }
 
+        return .string(markdownHTML)
+    }
 }
