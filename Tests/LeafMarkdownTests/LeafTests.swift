@@ -36,51 +36,35 @@ class MarkdownTests: XCTestCase {
     func testRunTag() throws {
         let inputMarkdown = "# This is a test\n\nWe have some text in a tag"
         let expectedHtml = "<h1>This is a test</h1>\n<p>We have some text in a tag</p>\n"
-
-//        let result = try renderer.render(path: template, context: ["data": .string(inputMarkdown)])
-//        let resultString = result.getString(at: 0, length: result.readableBytes)
         let resultString = try render(context: ["data": .string(inputMarkdown)])
         XCTAssertEqual(resultString, expectedHtml)
     }
 
-//    func testNilParameterDoesNotCrashLeaf() throws {
-//        let expectedHtml = ""
-//        let result = try renderer.render(path: template, context: ["data": .nil])
-//        let resultString = result.getString(at: 0, length: result.readableBytes)
-//        XCTAssertEqual(resultString, expectedHtml)
-//    }
-//
-//    func testStripHtml() throws {
-//        let inputMarkdown = "<br>"
-//        let expectedHtml = "<!-- raw HTML omitted -->\n"
-//
-//        let result = try renderer.render(template, context: ["data": .string(inputMarkdown)])
-//        let resultString = result.getString(at: 0, length: result.readableBytes)
-//        XCTAssertEqual(resultString, expectedHtml)
-//    }
-//
-//    func testRejectBadData() throws {
-//        let data = LeafData.lazy { .null }
-//        XCTAssertThrowsError(try renderer.render(template, context: ["data": data]))
-//    }
-//
-//    func testDoNotStripHtml() throws {
-//        let loop = EmbeddedEventLoop()
-//        let config = LeafConfiguration(rootDirectory: Process().currentDirectoryPath)
-//        var tags = defaultTags
-//        tags["markdown"] = Markdown(options: [.unsafe])
-//        let renderer = LeafRenderer(
-//            configuration: config,
-//            tags: tags,
-//            files: NIOLeafFiles(fileio: .init(threadPool: .init(numberOfThreads: 1))),
-//            eventLoop: loop
-//        )
-//
-//        let inputMarkdown = "<br>"
-//        let expectedHtml = "<br>\n"
-//
-//        let result = try renderer.render(template, context: ["data": .string(inputMarkdown)])
-//        let resultString = result.getString(at: 0, length: result.readableBytes)
-//        XCTAssertEqual(resultString, expectedHtml)
-//    }
+    func testNilParameterDoesNotCrashLeaf() throws {
+        let expectedHtml = ""
+        let resultString = try render(context: ["data": .trueNil])
+        XCTAssertEqual(resultString, expectedHtml)
+    }
+
+    func testStripHtml() throws {
+        let inputMarkdown = "<br>"
+        let expectedHtml = "<!-- raw HTML omitted -->\n"
+
+        let resultString = try render(context: ["data": .string(inputMarkdown)])
+        XCTAssertEqual(resultString, expectedHtml)
+    }
+
+    func testRejectBadData() throws {
+        XCTAssertThrowsError(try render(context: ["data": .dictionary(["something": .string("somethingelese")])]))
+    }
+
+    func testDoNotStripHtml() throws {
+        markdownTag = Markdown(options: [.unsafe])
+
+        let inputMarkdown = "<br>"
+        let expectedHtml = "<br>\n"
+
+        let resultString = try render(context: ["data": .string(inputMarkdown)])
+        XCTAssertEqual(resultString, expectedHtml)
+    }
 }
