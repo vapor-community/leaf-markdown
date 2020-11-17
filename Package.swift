@@ -11,7 +11,7 @@ let package = Package(
         .library(name: "LeafMarkdown", targets: ["LeafMarkdown"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor-community/markdown.git", from: "0.6.1"),
+        .package(name: "SwiftMarkdown", url: "https://github.com/vapor-community/markdown.git", from: "0.6.1"),
         .package(url: "https://github.com/vapor/leaf-kit.git", from: "1.0.0"),
     ],
     targets: [
