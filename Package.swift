@@ -12,7 +12,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "SwiftMarkdown", url: "https://github.com/vapor-community/markdown.git", from: "0.6.1"),
-        .package(url: "https://github.com/vapor/leaf-kit.git", from: "1.0.0"),
+        .package(url: "https://github.com/vapor/leaf-kit.git", from: "1.3.1"),
     ],
     targets: [
         .target(name: "LeafMarkdown", dependencies: [

@@ -1,7 +1,7 @@
 import LeafKit
 import SwiftMarkdown
 
-public struct Markdown: LeafTag {
+public struct Markdown: UnsafeUnescapedLeafTag {
     public enum Error: Swift.Error {
         case invalidArgument(LeafData?)
     }
