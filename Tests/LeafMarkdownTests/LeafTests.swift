@@ -8,7 +8,6 @@ struct MarkdownTagTests {
     // MARK: - Properties
 
     let ast: [Syntax]
-    let markdownTag = MarkdownTag()
 
     // MARK: - Setup
 
@@ -21,10 +20,10 @@ struct MarkdownTagTests {
 
     // MARK: - Helper
 
-    func render(context: [String: LeafData]) throws -> String {
+    func render(context: [String: LeafData], options: MarkdownOptions = []) throws -> String {
         var serializer = LeafSerializer(
             ast: ast,
-            tags: ["markdown": markdownTag],
+            tags: ["markdown": MarkdownTag(options: options)],
             ignoreUnfoundImports: false
         )
         let view = try serializer.serialize(context: context)
@@ -54,12 +53,49 @@ struct MarkdownTagTests {
         }
     }
 
-    @Test("Raw HTML is passed through")
-    func rawHtmlIsPassedThrough() throws {
+    @Test("Raw HTML is stripped by default")
+    func stripHtml() throws {
         let inputMarkdown = "<br>"
-        let expectedHtml = "<br>\n"
+        let expectedHtml = "<!-- raw HTML omitted -->\n"
 
         let resultString = try render(context: ["data": .string(inputMarkdown)])
         #expect(resultString == expectedHtml)
+    }
+
+    @Test("Raw HTML is preserved when unsafe is set")
+    func doNotStripHtml() throws {
+        let inputMarkdown = "<br>"
+        let expectedHtml = "<br>\n"
+
+        let resultString = try render(context: ["data": .string(inputMarkdown)], options: [.unsafe])
+        #expect(resultString == expectedHtml)
+    }
+
+    @Test("Unsafe link schemes are stripped by default")
+    func stripUnsafeLinks() throws {
+        let inputMarkdown = "[click](javascript:alert(1))"
+        let expectedHtml = "<p><a href=\"\">click</a></p>\n"
+
+        let resultString = try render(context: ["data": .string(inputMarkdown)])
+        #expect(resultString == expectedHtml)
+    }
+
+    @Test("Text and attributes are escaped")
+    func escapesTextAndAttributes() throws {
+        let inputMarkdown = "5 < 6 & 7 > 2\n\n![x](a.png \"\\\" onerror=alert(1) x=\\\"\")"
+
+        let resultString = try render(context: ["data": .string(inputMarkdown)])
+        #expect(resultString.contains("5 &lt; 6 &amp; 7 &gt; 2"))
+        // The quotes in the title are escaped, so the payload cannot break out of the attribute.
+        #expect(resultString.contains("title=\"&quot; onerror=alert(1) x=&quot;\""))
+    }
+
+    @Test("GitHub Flavored Markdown extensions are enabled")
+    func gfmExtensions() throws {
+        let inputMarkdown = "| a | b |\n| - | - |\n| 1 | 2 |\n\n~~struck~~"
+
+        let resultString = try render(context: ["data": .string(inputMarkdown)])
+        #expect(resultString.contains("<table>"))
+        #expect(resultString.contains("<del>struck</del>"))
     }
 }
