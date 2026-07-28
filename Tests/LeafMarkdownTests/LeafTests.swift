@@ -24,10 +24,10 @@ class MarkdownTests: XCTestCase {
     func render(context: [String: LeafData]) throws -> String {
         var serializer = LeafSerializer(
             ast: ast,
-            context: context,
-            tags: ["markdown": markdownTag]
+            tags: ["markdown": markdownTag],
+            ignoreUnfoundImports: false
         )
-        let view = try serializer.serialize()
+        let view = try serializer.serialize(context: context)
         return view.getString(at: view.readerIndex, length: view.readableBytes) ?? ""
     }
     
@@ -46,21 +46,11 @@ class MarkdownTests: XCTestCase {
         XCTAssertEqual(resultString, expectedHtml)
     }
 
-    func testStripHtml() throws {
-        let inputMarkdown = "<br>"
-        let expectedHtml = "<!-- raw HTML omitted -->\n"
-
-        let resultString = try render(context: ["data": .string(inputMarkdown)])
-        XCTAssertEqual(resultString, expectedHtml)
-    }
-
     func testRejectBadData() throws {
         XCTAssertThrowsError(try render(context: ["data": .dictionary(["something": .string("somethingelese")])]))
     }
 
-    func testDoNotStripHtml() throws {
-        markdownTag = Markdown(options: [.unsafe])
-
+    func testRawHtmlIsPassedThrough() throws {
         let inputMarkdown = "<br>"
         let expectedHtml = "<br>\n"
 
