@@ -4,21 +4,21 @@ on:
     branches:
       - main
   pull_request:
+permissions:
+  contents: read
+
 jobs:
   test:
     container: 
       image: swift:6.3
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v7
-    - name: Run Bionic Tests
-      run: swift test
-    - name: Setup container for codecov upload
-      run: apt-get update && apt-get install -y curl
-    - name: Process coverage file
-      run: llvm-cov show .build/x86_64-unknown-linux-gnu/debug/LeafMarkdownPackageTests.xctest -instr-profile=.build/debug/codecov/default.profdata > coverage.txt
-    - name: Upload code coverage
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_UPLOAD_KEY }}
-        file: coverage.txt
+      - uses: actions/checkout@v7
+      - name: Run Tests
+        run: swift test
+      - name: Install dependencies
+        run: apt-get update && apt-get install -y curl zstd
+      - name: Upload coverage data
+        uses: vapor/swift-codecov-action@2f478f2fd22e06ca363967d0fb6c6593a8548cee # v0.3.5
+        with:
+          codecov_token: ${{ secrets.CODECOV_UPLOAD_KEY }}
