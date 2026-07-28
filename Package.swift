@@ -23,7 +23,7 @@ let package = Package(
         .library(name: "LeafMarkdown", targets: ["LeafMarkdown"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swiftlang/swift-markdown.git", from: "0.8.0"),
+        .package(url: "https://github.com/swiftlang/swift-cmark.git", from: "0.8.0"),
         .package(url: "https://github.com/vapor/leaf-kit.git", from: "1.14.3"),
     ],
     targets: [
@@ -31,7 +31,8 @@ let package = Package(
             name: "LeafMarkdown",
             dependencies: [
                 .product(name: "LeafKit", package: "leaf-kit"),
-                .product(name: "Markdown", package: "swift-markdown"),
+                .product(name: "cmark-gfm", package: "swift-cmark"),
+                .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
             ],
             swiftSettings: extraSettings
         ),
