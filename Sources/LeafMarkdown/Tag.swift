@@ -1,17 +1,19 @@
-import LeafKit
-import SwiftMarkdown
+public import LeafKit
+public import Markdown
 
 public struct Markdown: UnsafeUnescapedLeafTag {
     public enum Error: Swift.Error {
         case invalidArgument(LeafData?)
     }
-    
-    private let options: MarkdownOptions?
-    
-    public init(options: MarkdownOptions? = nil) {
-        self.options = options
+
+    private let parseOptions: ParseOptions
+    private let formatOptions: HTMLFormatterOptions
+
+    public init(parseOptions: ParseOptions = [], formatOptions: HTMLFormatterOptions = []) {
+        self.parseOptions = parseOptions
+        self.formatOptions = formatOptions
     }
-    
+
     public func render(_ ctx: LeafContext) throws -> LeafData {
         var markdown = ""
         
@@ -22,12 +24,8 @@ public struct Markdown: UnsafeUnescapedLeafTag {
             markdown = markdownArgumentValue
         }
 
-        let markdownHTML: String
-        if let options = options {
-            markdownHTML = try markdownToHTML(markdown, options: options)
-        } else {
-            markdownHTML = try markdownToHTML(markdown)
-        }
+        let document = Document(parsing: markdown, options: parseOptions)
+        let markdownHTML = HTMLFormatter.format(document, options: formatOptions)
 
         return .string(markdownHTML)
     }
