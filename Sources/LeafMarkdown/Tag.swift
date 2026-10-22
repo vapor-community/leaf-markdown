@@ -32,7 +32,7 @@ public struct MarkdownTag: UnsafeUnescapedLeafTag {
         return .string(try Self.markdownToHTML(markdown, options: options))
     }
 
-    static func markdownToHTML(_ markdown: String, options: MarkdownOptions) throws -> String {
+    public static func markdownToHTML(_ markdown: String, options: MarkdownOptions) throws -> String {
         cmark_gfm_core_extensions_ensure_registered()
 
         guard let parser = cmark_parser_new(options.rawValue) else {
